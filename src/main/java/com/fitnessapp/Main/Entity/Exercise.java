@@ -14,11 +14,13 @@ public class Exercise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
     private String muscleGroup; // e.g., Chest, Legs, Back
     private boolean requiresEquipment; // true = needs gym equipment, false = bodyweight
     private String location; // "Home" or "Gym"
-    private String type; // "Strength" or "Endurance"
+    private String type;// "Strength" or "Endurance"
+    private String category; // "Compound or Isolation or Cardio"
 
     public Long getId() {
         return id;
@@ -66,6 +68,14 @@ public class Exercise {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
 

@@ -2,10 +2,10 @@ package com.fitnessapp.Main.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -18,6 +18,8 @@ public class User {
     private Long id;
 
     private String username;
+
+    @Column(nullable = false, unique = true)
     private String email;
     private String password;
 //    private int age;
@@ -25,7 +27,12 @@ public class User {
     private boolean prefersHomeWorkout;
 
     @ManyToMany
-    private List<Exercise> workoutPlan;  // List of exercises in the workout plan
+    @JoinTable(
+            name = "user_workout_plan",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "exercise_id")
+    )
+    private Set<Exercise> workoutPlan;  // List of exercises in the workout plan
 
     public Long getId() {
         return id;
@@ -67,11 +74,11 @@ public class User {
         this.prefersHomeWorkout = prefersHomeWorkout;
     }
 
-    public List<Exercise> getWorkoutPlan() {
+    public Set<Exercise> getWorkoutPlan() {
         return workoutPlan;
     }
 
-    public void setWorkoutPlan(List<Exercise> workoutPlan) {
+    public void setWorkoutPlan(Set<Exercise> workoutPlan) {
         this.workoutPlan = workoutPlan;
     }
 

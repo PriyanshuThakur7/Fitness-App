@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,25 +22,6 @@ public class UserService {
     @Autowired
     ExerciseRepository exerciseRepository;
 
-    public void generateWorkoutPlan(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        // Filter exercises based on user preferences
-        List<Exercise> availableExercises = exerciseRepository.findByLocation(
-                user.isPrefersHomeWorkout() ? "Home" : "Gym"
-        );
-
-        // Further filter based on fitness goal
-        List<Exercise> selectedExercises = availableExercises.stream()
-                .filter(ex -> (user.getFitnessGoal().equalsIgnoreCase("BULK") && ex.getType().equals("Strength")) ||
-                        (user.getFitnessGoal().equalsIgnoreCase("CUT") && ex.getType().equals("Endurance")))
-                .collect(Collectors.toList());
-
-        user.setWorkoutPlan(selectedExercises);
-
-    }
-
     public User findByUserId(Long userId) {
         Optional<User> user= userRepository.findById(userId);
         return user.orElse(null);
@@ -47,17 +29,17 @@ public class UserService {
 
     public User registerUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("Email is already registered!");
+            throw new IllegalArgumentException("Email is already registered!");
         }
         return userRepository.save(user);
     }
 
     public String loginUser(LoginRequest loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         if (!user.getPassword().equals(loginRequest.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new IllegalArgumentException("Invalid credentials");
         }
 
         return "Login Successful";
@@ -65,11 +47,12 @@ public class UserService {
 
     public User getUserById(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 
     public User updateUser(Long userId, User updatedUser) {
         User user = getUserById(userId);
+        if(user==null || updatedUser==null) throw new IllegalArgumentException("User Not Found");
         user.setUsername(updatedUser.getUsername());
         user.setFitnessGoal(updatedUser.getFitnessGoal());
         user.setPrefersHomeWorkout(updatedUser.isPrefersHomeWorkout());
