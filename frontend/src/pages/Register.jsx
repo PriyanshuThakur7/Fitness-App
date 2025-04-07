@@ -21,29 +21,19 @@ function Register() {
 		});
 	};
 
-	const handleSubmit = async () => {
-		const response = await fetch('http://localhost:8080/api/user/login', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				email: email, // Make sure these are correctly set
-				password: password,
-			}),
-		});
-
-		const text = await response.text(); // Read response as text first
-		console.log('Raw response:', text);
-
-		try {
-			const data = JSON.parse(text); // Convert to JSON if possible
-			console.log('Parsed response:', data);
-		} catch (error) {
-			console.error(
-				'Response is not JSON, might be an error message:',
-				text
-			);
-		}
-	};
+	 const handleSubmit = async (e) => {
+			e.preventDefault();
+			try {
+				const response = await axios.post(
+					'http://localhost:8080/api/user/register',
+					formData
+				);
+				alert('Registered successfully!');
+				navigate('/login');
+			} catch (error) {
+				alert('Registration failed: ' + error.response.data.message);
+			}
+		};
 
 	return (
 		<form onSubmit={handleSubmit}>

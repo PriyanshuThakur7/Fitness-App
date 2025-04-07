@@ -7,7 +7,7 @@ function Profile() {
 
 	useEffect(() => {
 		axios
-			.get('http://localhost:8080/${userId}') // Replace with user ID from auth
+			.get('http://localhost:8080/api/user/${userId}') // Replace with user ID from auth
 			.then((response) => setProfile(response.data))
 			.catch((error) => console.error(error));
 	}, []);

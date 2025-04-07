@@ -1,9 +1,12 @@
 // Login.jsx
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const navigate = useNavigate();
 
 	const handleLogin = async () => {
 		try {
@@ -18,10 +21,12 @@ const Login = () => {
 
 			const text = await response.text(); // Read response as text
 			console.log('Raw response:', text);
+			console.log(typeof text);
 
 			try {
 				const data = JSON.parse(text); // Try parsing as JSON
 				console.log('Parsed response:', data);
+				navigate('/profile');
 			} catch (jsonError) {
 				console.error(
 					'Response is not JSON, might be an error message:',
