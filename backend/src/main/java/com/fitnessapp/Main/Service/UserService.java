@@ -34,7 +34,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public String loginUser(LoginRequest loginRequest) {
+    public Long loginUser(LoginRequest loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
@@ -42,7 +42,7 @@ public class UserService {
             throw new IllegalArgumentException("Invalid credentials");
         }
 
-        return "Login Successful";
+        return user.getId();
     }
 
     public User getUserById(Long userId) {
