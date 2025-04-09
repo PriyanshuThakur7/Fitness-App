@@ -46,14 +46,32 @@ function Dashboard() {
     { id: 5, name: 'Overhead Press', sets: 3, reps: 8 }
   ];
 
+  const generateWorkoutPlan = () => {
+    if (userId) {
+      axios
+        .post(`http://localhost:8080/api/user/workout/generate/${userId}`)
+        .then(() => {
+          alert('Workout Plan Generated Successfully');
+          // Optionally, fetch the updated workout plan
+          axios
+            .get(`http://localhost:8080/api/user/workout/${userId}`)
+            .then((response) => setWorkouts(response.data))
+            .catch((error) => console.error('Error fetching workouts:', error));
+        })
+        .catch((error) => console.error('Error generating workout plan:', error));
+    } else {
+      console.error('User ID not found in localStorage');
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-[url('C:\\Users\\ujjwa\\OneDrive\\Desktop\\Fitness_App\\Fitness-App\\frontend\\src\\assets\\reg1.png')] bg-cover bg-center p-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Personalized Fitness Planner and Progress Tracker</h1>
+          <h1 className="text-3xl font-bold text-gray-50">Personalized Fitness Planner and Progress Tracker</h1>
           <button 
             onClick={handleLogout}
-            className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
+            className="px-6 py-2 border border-gray-300 rounded-md hover:text-gray-700 bg-gray-50 transition-colors"
           >
             Logout
           </button>
@@ -86,6 +104,12 @@ function Dashboard() {
               <h3 className="text-xl font-semibold">Workout Plan</h3>
               <p>{workouts.length} exercises</p>
             </div>
+            <button 
+              onClick={generateWorkoutPlan}
+              className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Generate Workout Plan
+            </button>
           </div>
 
           {/* Today's Workout Card */}
@@ -101,7 +125,7 @@ function Dashboard() {
           {/* Progressive Overload Card */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-2xl font-bold mb-4">Progressive Overload</h2>
-            <p className="text-lg">Increase weight for Squat</p>
+            <p className="text-lg">Increase weight for {workouts[2].name}</p>
           </div>
         </div>
       </div>
