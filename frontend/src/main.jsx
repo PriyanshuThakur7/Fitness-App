@@ -8,18 +8,19 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Workout from './pages/Workout';
 import Dashboard from './pages/Dashboard';
+import Hero from "./pages/Hero";
 
 const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-		
-      <Route path="/" element={<Register />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/workout" element={<Workout />} />
-	  <Route path="/dashboard" element={<Dashboard />} />
-    </>
-  )
+    createRoutesFromElements(
+        <>
+            <Route path="/" element={<Hero />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/workout" element={<Workout />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+        </>
+    )
 );
 
 ReactDOM.createRoot(document.getElementById('root')).render(
