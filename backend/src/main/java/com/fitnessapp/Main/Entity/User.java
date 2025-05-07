@@ -22,7 +22,10 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
     private String password;
-//    private int age;
+    private int age;
+    private double weight;
+    private String gender;
+    private String fitnessLevel;
     private String fitnessGoal; // BULK / CUT / MAINTAIN
     private boolean prefersHomeWorkout;
 
@@ -88,5 +91,37 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getFitnessLevel() {
+        return fitnessLevel;
+    }
+
+    public void setFitnessLevel(String fitnessLevel) {
+        this.fitnessLevel = fitnessLevel;
     }
 }

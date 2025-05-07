@@ -26,10 +26,19 @@ public class ExerciseService {
                 user.isPrefersHomeWorkout() ? "Home" : "Gym"
         );
 
-        // Categorize exercises
-        Map<String, List<Exercise>> categorizedExercises = categorizeExercises(allExercises);
+        // Filter based on fitness level (e.g., remove strength compound for beginners)
+        allExercises = filterByFitnessLevel(allExercises, user.getFitnessLevel());
 
-        // Generate workout plan based on fitness goal
+        // For older users, reduce high-impact (e.g., burpees, jump rope)
+//        if (user.getAge() > 50) {
+//            allExercises.removeIf(e -> e.getName().equalsIgnoreCase("Burpees")
+//                    || e.getName().equalsIgnoreCase("Jump Rope"));
+//        }
+
+        // If user is overweight, focus more on cardio
+        boolean isOverweight = user.getWeight() > 90; // arbitrary threshold
+
+        Map<String, List<Exercise>> categorizedExercises = categorizeExercises(allExercises);
         Set<Exercise> selectedExercises = new HashSet<>();
 
         if (user.getFitnessGoal().equalsIgnoreCase("BULK")) {
@@ -37,7 +46,7 @@ public class ExerciseService {
             selectedExercises.addAll(selectRandomExercises(categorizedExercises.get("Lower Body"), 3));
             selectedExercises.addAll(selectRandomExercises(categorizedExercises.get("Core"), 2));
         } else if (user.getFitnessGoal().equalsIgnoreCase("CUT")) {
-            selectedExercises.addAll(selectRandomExercises(categorizedExercises.get("Cardio"), 3));
+            selectedExercises.addAll(selectRandomExercises(categorizedExercises.get("Cardio"), isOverweight ? 4 : 3));
             selectedExercises.addAll(selectRandomExercises(categorizedExercises.get("Upper Body"), 2));
             selectedExercises.addAll(selectRandomExercises(categorizedExercises.get("Lower Body"), 2));
         } else { // MAINTAIN
@@ -46,10 +55,10 @@ public class ExerciseService {
             selectedExercises.addAll(selectRandomExercises(categorizedExercises.get("Core"), 2));
         }
 
-        // Assign workout plan and save user
         user.setWorkoutPlan(selectedExercises);
         userRepository.save(user);
     }
+
 
     private Map<String, List<Exercise>> categorizeExercises(List<Exercise> exercises) {
         Map<String, List<Exercise>> categorizedExercises = new HashMap<>();
@@ -75,6 +84,24 @@ public class ExerciseService {
 
         return categorizedExercises;
     }
+
+    private List<Exercise> filterByFitnessLevel(List<Exercise> exercises, String fitnessLevel) {
+        if (fitnessLevel == null) return exercises;
+
+        return exercises.stream().filter(e -> {
+            switch (fitnessLevel.toUpperCase()) {
+                case "BEGINNER":
+                    return !e.getCategory().equalsIgnoreCase("Compound") || e.getType().equalsIgnoreCase("Endurance");
+                case "INTERMEDIATE":
+                    return true; // allow all
+                case "ADVANCED":
+                    return true;
+                default:
+                    return true;
+            }
+        }).toList();
+    }
+
 
     private Set<Exercise> selectRandomExercises(List<Exercise> exercises, int count) {
         Collections.shuffle(exercises);

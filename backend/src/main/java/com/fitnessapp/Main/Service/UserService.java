@@ -56,6 +56,13 @@ public class UserService {
         user.setUsername(updatedUser.getUsername());
         user.setFitnessGoal(updatedUser.getFitnessGoal());
         user.setPrefersHomeWorkout(updatedUser.isPrefersHomeWorkout());
+        user.setAge(updatedUser.getAge());
+        user.setFitnessLevel(updatedUser.getFitnessLevel());
+        user.setGender(updatedUser.getGender());
+        user.setEmail(updatedUser.getEmail());
+        user.setPassword(updatedUser.getPassword());
+        user.setWeight(updatedUser.getWeight());
+
         return userRepository.save(user);
     }
 }

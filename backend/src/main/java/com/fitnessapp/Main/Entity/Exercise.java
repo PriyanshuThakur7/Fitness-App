@@ -21,6 +21,15 @@ public class Exercise {
     private String location; // "Home" or "Gym"
     private String type;// "Strength" or "Endurance"
     private String category; // "Compound or Isolation or Cardio"
+    private String difficultyLevel; // e.g., "Beginner", "Intermediate", "Advanced"
+
+    public String getDifficultyLevel() {
+        return difficultyLevel;
+    }
+
+    public void setDifficultyLevel(String difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
+    }
 
     public Long getId() {
         return id;
