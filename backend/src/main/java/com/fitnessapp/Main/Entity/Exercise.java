@@ -22,6 +22,10 @@ public class Exercise {
     private String type;// "Strength" or "Endurance"
     private String category; // "Compound or Isolation or Cardio"
     private String difficultyLevel; // e.g., "Beginner", "Intermediate", "Advanced"
+    private boolean status=false;
+    private Integer sets;
+    private Integer reps;
+    private Integer duration;
 
     public String getDifficultyLevel() {
         return difficultyLevel;
@@ -85,6 +89,38 @@ public class Exercise {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Integer getSets() {
+        return sets;
+    }
+
+    public void setSets(Integer sets) {
+        this.sets = sets;
+    }
+
+    public Integer getReps() {
+        return reps;
+    }
+
+    public void setReps(Integer reps) {
+        this.reps = reps;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 }
 

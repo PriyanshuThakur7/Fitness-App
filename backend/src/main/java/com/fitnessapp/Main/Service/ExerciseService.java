@@ -56,6 +56,19 @@ public class ExerciseService {
         }
 
         user.setWorkoutPlan(selectedExercises);
+
+        for (Exercise exercise : selectedExercises) {
+            if ("Strength".equalsIgnoreCase(exercise.getType())) {
+                exercise.setSets(3);   // Default sets
+                exercise.setReps(10);  // Default reps
+                exercise.setDuration(null);
+            } else if ("Endurance".equalsIgnoreCase(exercise.getType())) {
+                exercise.setSets(null);
+                exercise.setReps(null);
+                exercise.setDuration(60); // Default duration in seconds
+            }
+        }
+
         userRepository.save(user);
     }
 

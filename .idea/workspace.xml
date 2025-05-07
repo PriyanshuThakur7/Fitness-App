@@ -7,10 +7,7 @@
     <list default="true" id="a3f76b49-e7be-4079-a302-683826f351bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/fitnessapp/Main/Entity/Exercise.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/fitnessapp/Main/Entity/Exercise.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/fitnessapp/Main/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/fitnessapp/Main/Entity/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/fitnessapp/Main/Service/ExerciseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/fitnessapp/Main/Service/ExerciseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/fitnessapp/Main/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/fitnessapp/Main/Service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
