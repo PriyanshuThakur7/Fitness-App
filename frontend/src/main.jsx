@@ -1,10 +1,30 @@
-import { BrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import './index.css';
+import { StrictMode } from 'react';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
+import Workout from './pages/Workout';
+import Dashboard from './pages/Dashboard';
+import Hero from "./pages/Hero";
+
+const router = createBrowserRouter(
+    createRoutesFromElements(
+        <>
+            <Route path="/" element={<Hero />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/workout" element={<Workout />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+        </>
+    )
+);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>
 );
