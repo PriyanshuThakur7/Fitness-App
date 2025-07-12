@@ -12,8 +12,20 @@
     --color-text-dark: #000000; /* True Black - for dark text on light background */
     --color-text-dark-sec: #374151; /* Cool Gray - for dark text on light backgrounds */
     --color-text-light: #F9FAFB; /* True White - for light text on dark background */
-    --color-text-light-sec:  #D1D5DB; /* Cool Gray - for light text on dark backgrounds */
+    --color-text-light-sec:  #D1D5DB;
+    --color-second-dark: #1F2937;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  background-color: #374151; /* Replace with your desired background color */
+  color: #D1D5DB; /* Replace with your desired text color */
+  -webkit-text-fill-color: #D1D5DB;
+  -webkit-box-shadow: 0 0 0px 1000px #374151 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 
 body {
     margin: 0;

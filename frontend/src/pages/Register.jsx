@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { Activity, ChevronRight } from "lucide-react";
 
 function Register() {
     const navigate = useNavigate();
@@ -123,8 +124,8 @@ function Register() {
                             className="w-full px-3 py-2 border-2 border-text-light-sec rounded-md focus:outline-none focus:border-accent text-text-light-sec bg-text-dark-sec"
                         >
                             <option value="">Select Fitness Goal</option>
-                            <option value="BULK">Bulk</option>
-                            <option value="CUT">Cut</option>
+                            <option value="BULK">GAINING MUSCLE</option>
+                            <option value="CUT">LOSING FAT</option>
                         </select>
                         <select
                             name="fitnessLevel"
@@ -158,68 +159,96 @@ function Register() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-dark px-4 py-12">
-            <div className="max-w-md w-full space-y-8 bg-text-dark-sec p-6 rounded-xl shadow-lg">
-                <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(to_bottom,transparent,black)]"></div>
-
-                <div>
-                    <h2 className="text-center text-2xl font-bold text-text-light">
-                        Create your account
-                    </h2>
-                    <p className="text-center text-sm text-text-light-sec">
-                        Already have an account?{" "}
-                        <Link
-                            to="/login"
-                            className="text-primary hover:underline"
-                        >
-                            Log in
-                        </Link>
-                    </p>
-                </div>
-
-                <div className="w-full bg-gray-200 h-2 rounded-full">
-                    <div
-                        className="bg-gradient-to-br from-primary to-accent h-2 rounded-full"
-                        style={{ width: `${progress}%` }}
-                    />
-                </div>
-
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    {renderStep()}
-
-                    <div className="flex justify-between pt-4">
-                        {step > 0 && (
-                            <button
-                                type="button"
-                                onClick={prevStep}
-                                className="px-4 py-2 bg-primary text-text-light rounded hover:bg-accent text-sm"
-                            >
-                                Back
-                            </button>
-                        )}
-                        {step < 2 ? (
-                            <button
-                                type="button"
-                                onClick={nextStep}
-                                className="ml-auto px-4 py-2 bg-primary text-text-light rounded hover:bg-accent text-sm"
-                            >
-                                Next
-                            </button>
-                        ) : (
-                            <button
-                                type="submit"
-                                disabled={isSubmitting} // Disable the button based on submission status
-                                className={`ml-auto px-4 py-2 ${
-                                    isSubmitting
-                                        ? "bg-primary hover:bg-accent"
-                                        : "bg-success "
-                                } text-white rounded hover:bg-green-700 text-sm`}
-                            >
-                                {isSubmitting ? "Processing..." : "Register"}
-                            </button>
-                        )}
+        <div className="relative bg-dark">
+            <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(to_bottom,transparent,black)]"></div>
+            <div className="min-h-screen flex flex-row justify-center items-center relative z-20">
+                <div className="flex flex-col mr-6">
+                    <div className="flex items-center ml-6 gap-2 mb-4">
+                        <div className="relative h-14 w-14">
+                            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary to-accent rounded-full">
+                                <Activity
+                                    strokeWidth={2.5}
+                                    className="h-10 w-10 text-white"
+                                />
+                            </div>
+                        </div>
+                        <span className="text-text-light text-3xl font-bold">
+                            TrackByte
+                        </span>
                     </div>
-                </form>
+
+                    <div className="flex items-center">
+                        <h1 className="text-2xl text-text-light-sec py-3 px-6 rounded-4xl">
+                            Register Now! To get an{" "}
+                            <span className="text-primary">head start</span>{" "}
+                            <br></br>on your fitness journey!
+                        </h1>
+                    </div>
+                </div>
+                <div className="flex items-center justify-center px-4 py-12">
+                    <div className="max-w-md w-full space-y-8 bg-text-dark-sec p-6 rounded-xl shadow-lg">
+                        <div>
+                            <h2 className="text-center text-2xl font-bold text-text-light">
+                                Create your account
+                            </h2>
+                            <p className="text-center text-sm text-text-light-sec">
+                                Already have an account?{" "}
+                                <Link
+                                    to="/login"
+                                    className="text-primary hover:underline "
+                                >
+                                    Log in
+                                </Link>
+                            </p>
+                        </div>
+
+                        <div className="w-full bg-gray-200 h-2 rounded-full">
+                            <div
+                                className="bg-gradient-to-br from-primary to-accent h-2 rounded-full"
+                                style={{ width: `${progress}%` }}
+                            />
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            {renderStep()}
+
+                            <div className="flex justify-between pt-4">
+                                {step > 0 && (
+                                    <button
+                                        type="button"
+                                        onClick={prevStep}
+                                        className="px-4 py-2 bg-primary text-text-light rounded hover:bg-accent text-sm cursor-pointer"
+                                    >
+                                        Back
+                                    </button>
+                                )}
+                                {step < 2 ? (
+                                    <button
+                                        type="button"
+                                        onClick={nextStep}
+                                        className="ml-auto px-4 py-2 bg-primary text-text-light rounded hover:bg-accent text-sm cursor-pointer"
+                                    >
+                                        Next
+                                    </button>
+                                ) : (
+                                    <button
+                                        type="submit"
+                                        disabled={isSubmitting} // Disable the button based on submission status
+                                        className={`ml-auto px-4 py-2 ${
+                                            isSubmitting
+                                                ? "bg-success cursor-not-allowed"
+                                                : " bg-primary hover:bg-accent"
+                                        } text-white rounded text-sm`}
+                                    >
+                                        {isSubmitting
+                                            ? "Processing..."
+                                            : "Register"}
+                                    </button>
+                                )}
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     );
